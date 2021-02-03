@@ -1,0 +1,19 @@
+{
+  "name": "mirage-dc",
+  "version": "1.0.0",
+  "description": "A demand collection website for mirage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamWang/mirage-dc.git"
+  },
+  "author": "cam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CamWang/mirage-dc/issues"
+  },
+  "homepage": "https://github.com/CamWang/mirage-dc#readme"
+}
