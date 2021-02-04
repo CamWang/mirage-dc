@@ -4,8 +4,8 @@
   "description": "The frontend side of mirage-dc",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "dev": "webpack serve"
   },
   "author": "cam",
   "license": "ISC",

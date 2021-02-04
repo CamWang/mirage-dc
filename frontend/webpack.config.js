@@ -14,10 +14,10 @@ module.exports = {
     new VueLoaderPlugin(),
     new VuetifyLoaderPlugin(),
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({ filename: "main.[contenthash].css" }),
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-    })
+    }),
   ],
 
   module: {
@@ -28,23 +28,19 @@ module.exports = {
         loader: "babel-loader"
       },
       {
-        test: /.(sa|sc|c)ss$/,
+        test: /.s(a|c)ss$/,
 
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
           'vue-style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-
             options: {
               sourceMap: true
             }
           },
           {
             loader: "sass-loader",
-
             options: {
               sourceMap: true,
               implementation: require('sass'),
@@ -55,6 +51,18 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+          }
+        ],
       },
       {
         test: /\.vue$/,
