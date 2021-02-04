@@ -1,13 +1,18 @@
-import Koa from "koa";
-import serve from "koa-static";
-import router from "./router.js";
+const Koa = require("koa");
+const serve = require("koa-static");
+const router = require("./router");
+const db = require("./db");
 
-export default class Server {
+class Server {
   constructor() {
     this.init();
   }
 
   init() {
+    this.setupServer();
+  }
+
+  setupServer() {
     const app = new Koa();
     app.use(serve('dist'));
     app.use(router.routes());
@@ -15,3 +20,5 @@ export default class Server {
     app.listen(3000);
   }
 }
+
+module.exports = Server;

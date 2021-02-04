@@ -2,7 +2,6 @@
   "name": "mirage-dc-be",
   "version": "1.0.0",
   "description": "The backend of mirage-dc",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js"
@@ -12,6 +11,7 @@
   "dependencies": {
     "@koa/router": "^10.0.0",
     "koa": "^2.13.1",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "mongodb": "^3.6.4"
   }
 }
