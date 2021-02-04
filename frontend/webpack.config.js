@@ -6,7 +6,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { VuetifyLoaderPlugin } = require('vuetify-loader');
 const ProgressPlugin = require('progress-bar-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
