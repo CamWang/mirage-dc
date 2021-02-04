@@ -11,7 +11,9 @@
           class="mr-10"
           color="grey darken-1"
           size="32"
-        ></v-avatar>
+        >
+          <img src="@/static/image/avatar.jpg" alt="Heading" />
+        </v-avatar>
 
         <v-btn
           v-for="link in links"
@@ -88,10 +90,7 @@
   export default {
     data: () => ({
       links: [
-        'Dashboard',
-        'Messages',
-        'Profile',
-        'Updates',
+        'Home'
       ],
     }),
   }

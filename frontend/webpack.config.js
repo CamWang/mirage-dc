@@ -1,22 +1,31 @@
 const path = require("path");
-const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { VuetifyLoaderPlugin } = require('vuetify-loader');
+const ProgressPlugin = require('progress-bar-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  mode: "development",
+  output: {
+    path: path.resolve(__dirname, 'dist')
+  },
 
   plugins: [
-    new webpack.ProgressPlugin(),
+    new FriendlyErrorsWebpackPlugin(),
+    new CleanWebpackPlugin(),
+    new ProgressPlugin({ complete: '▮', total: 20 }),
     new VueLoaderPlugin(),
     new VuetifyLoaderPlugin(),
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
+    }),
+    new BundleAnalyzerPlugin({
+      openAnalyzer: true
     }),
   ],
 
@@ -46,7 +55,6 @@ module.exports = {
               implementation: require('sass'),
               sassOptions: {
                 fiber: require('fibers'),
-                indentedSyntax: true
               }
             }
           }
@@ -67,7 +75,16 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader'
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          name: "assets/[name].[ext]",
+          esModule: false,
+          limit: 8192,
+        }
+      },
     ]
   },
 
@@ -76,13 +93,13 @@ module.exports = {
     host: "localhost"
   },
 
+  // devtool: 'eval-cheap-module-source-map',
+
   resolve: {
-    extensions: [
-      '.js', '.json','.vue'
-    ],
+    extensions: ['.js', '.json','.vue'],
     alias: {
       '@': path.join(__dirname, 'src'),
       'vue$': 'vue/dist/vue.esm.js'
     },
-  }
+  },
 };
