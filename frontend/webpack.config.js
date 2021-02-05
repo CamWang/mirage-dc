@@ -23,9 +23,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new BundleAnalyzerPlugin({
-      openAnalyzer: true
-    }),
+    // new BundleAnalyzerPlugin({
+    //   openAnalyzer: true
+    // }),
   ],
 
   module: {

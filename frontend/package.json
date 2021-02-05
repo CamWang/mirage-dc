@@ -4,7 +4,7 @@
   "description": "The frontend side of mirage-dc",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --node-env production --stats errors-only",
+    "build": "webpack --node-env production --stats errors-only && rm -rf ../backend/dist && cp -r dist ../backend",
     "dev": "webpack serve --node-env development --stats errors-only"
   },
   "author": "cam",
