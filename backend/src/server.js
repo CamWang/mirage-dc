@@ -1,7 +1,6 @@
 const Koa = require("koa");
 const serve = require("koa-static");
 const router = require("./router");
-const db = require("./db");
 
 class Server {
   constructor() {
