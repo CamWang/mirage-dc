@@ -13,7 +13,9 @@ class Server {
 
   setupServer() {
     const app = new Koa();
-    app.use(serve('dist'));
+    app.use(serve('dist'),{
+      gzip:true
+    });
     app.use(router.routes());
     app.use(router.allowedMethods());
     app.listen(3000);

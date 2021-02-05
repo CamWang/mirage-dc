@@ -4,15 +4,30 @@ const router = new Router();
 
 
 router.get('/demand', async (ctx, next) => {
+  const query = ctx.request.query;
+  let start = 0;
+  if (query.start && Number.isInteger(start)) {
+    start = Number.parseInt(query.start);
+  }
   const db = global.mirage.db;
   const demand = db.collection("demand");
+  let count = 0;
   await demand
-    .find({})
-    .project({id:0})
+    .estimatedDocumentCount()
+    .then(value => {
+      count = value;
+    });
+  await demand
+    .find({}).sort({_id:-1}).skip(start).limit(20)
     .toArray()
     .then(value => {
       if (value.length > 0) {
-        ctx.body = value;
+        ctx.body = {
+          status: 0,
+          total: count,
+          skip: start,
+          content: value
+        };
       } else {
         ctx.body = {
           status: 1,
@@ -36,7 +51,6 @@ router.post('/demand', async (ctx, next) => {
       }
       const record = await db.collection("demand")
         .countDocuments({$and:[{nickname:query.nickname},{content:query.content}]});
-      console.log(record);
       if (record > 0) {
         ctx.body = {
           status: 1,
