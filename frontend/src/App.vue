@@ -149,6 +149,9 @@ export default {
             this.color = "success";
             this.text = result.message;
             this.snackbar = true;
+            setTimeout(() => {
+              this.getList();
+            }, 1000);
           } else {
             this.color = "red";
             this.text = result.message;
@@ -161,7 +164,6 @@ export default {
         }).finally(() => {
           setTimeout(() => {
             this.loading = false;
-            this.getList();
           }, 1000);
         });
       } else {
