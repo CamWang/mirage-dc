@@ -1,7 +1,7 @@
 const Router = require("@koa/router");
+const { validate } = require("./util/validate");
 
 const router = new Router();
-
 
 router.get('/demand', async (ctx, next) => {
   const query = ctx.request.query;
@@ -18,7 +18,9 @@ router.get('/demand', async (ctx, next) => {
       count = value;
     });
   await demand
-    .find({}).sort({_id:-1}).skip(start).limit(20)
+    .find({}).sort({
+      _id: -1
+    }).skip(start).limit(20)
     .toArray()
     .then(value => {
       if (value.length > 0) {
@@ -40,40 +42,46 @@ router.get('/demand', async (ctx, next) => {
 router.post('/demand', async (ctx, next) => {
   const db = global.mirage.db;
   const query = ctx.request.query;
+  const values = {
+    nickname: query.nickname,
+    demand: query.content
+  }
 
-  if (query.nickname) {
-    if (query.content) {
-      if (query.nickname.length > 20 || query.content.length > 200) {
-        ctx.body = {
-          status: 1,
-          message: "Nickname or content is too long"
-        }
-      }
-      const record = await db.collection("demand")
-        .countDocuments({$and:[{nickname:query.nickname},{content:query.content}]});
-      if (record > 0) {
-        ctx.body = {
-          status: 1,
-          message: "Don't submit same content twice"
-        }
-        return;
-      }
-      await db.collection("demand")
-        .insertOne(query);
-      ctx.body = {
-        status: 0,
-        message: "Submit successfully"
-      }
-    } else {
+  try {
+    validate(values);
+  } catch (error) {
+    if (error instanceof TypeError) {
       ctx.body = {
         status: 1,
-        message: "Must enter an content"
+        message: error.message
       }
+      return;
     }
-  } else {
+  } 
+
+  const record = await db.collection("demand")
+    .countDocuments({
+      $and: [{
+        nickname: values.nickname
+      }, {
+        content: values.demand
+      }]
+    });
+  if (record > 0) {
     ctx.body = {
-      message: "Must enter an Nickname"
+      status: 1,
+      message: "Don't submit same content twice"
     }
+    return;
+  }
+  await db.collection("demand")
+    .insertOne({
+      nickname: values.nickname,
+      content: values.demand
+    });
+  ctx.body = {
+    status: 0,
+    message: "Submit successfully"
   }
 });
 
