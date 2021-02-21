@@ -1,9 +1,17 @@
+/**
+ * demand.js
+ * 
+ * @description routes for demand
+ */
+
 const Router = require("@koa/router");
-const { validate } = require("./util/validate");
+const {
+  validate
+} = require("../util/validate");
 
-const router = new Router();
+const demand = new Router();
 
-router.get('/demand', async (ctx, next) => {
+demand.get('/', async (ctx, next) => {
   const query = ctx.request.query;
   let start = 0;
   if (query.start && Number.isInteger(start)) {
@@ -39,7 +47,7 @@ router.get('/demand', async (ctx, next) => {
     })
 });
 
-router.post('/demand', async (ctx, next) => {
+demand.post('/', async (ctx, next) => {
   const db = global.mirage.db;
   const query = ctx.request.query;
   const values = {
@@ -57,7 +65,7 @@ router.post('/demand', async (ctx, next) => {
       }
       return;
     }
-  } 
+  }
 
   const record = await db.collection("demand")
     .countDocuments({
@@ -85,4 +93,4 @@ router.post('/demand', async (ctx, next) => {
   }
 });
 
-module.exports = router;
+module.exports = demand;
