@@ -4,11 +4,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { VuetifyLoaderPlugin } = require('vuetify-loader');
-const ProgressPlugin = require('progress-bar-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
+
   output: {
     path: path.resolve(__dirname, 'dist')
   },
@@ -16,7 +17,9 @@ module.exports = {
   plugins: [
     new FriendlyErrorsWebpackPlugin(),
     new CleanWebpackPlugin(),
-    new ProgressPlugin({ complete: '▮', total: 20 }),
+    new WebpackBar({
+      basic: false
+    }),
     new VueLoaderPlugin(),
     new VuetifyLoaderPlugin(),
     new MiniCssExtractPlugin(),
@@ -89,7 +92,7 @@ module.exports = {
 
   devServer: {
     open: true,
-    host: "localhost"
+    host: "localhost",
   },
 
   // devtool: 'eval-cheap-module-source-map',

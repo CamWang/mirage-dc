@@ -4,8 +4,8 @@
   "description": "The frontend side of mirage-dc",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --node-env production --stats errors-only && rm -rf ../backend/dist && cp -r dist ../backend",
-    "dev": "webpack serve --node-env development --stats errors-only"
+    "build": "webpack --node-env production && rm -rf ../backend/dist && cp -r dist ../backend",
+    "dev": "webpack serve --node-env development"
   },
   "author": "cam",
   "license": "ISC",
@@ -20,10 +20,9 @@
     "deepmerge": "^4.2.2",
     "fibers": "^5.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
-    "html-webpack-plugin": "^4.5.1",
+    "html-webpack-plugin": "^4.5.2",
     "mini-css-extract-plugin": "^1.3.5",
     "node-sass": "^5.0.0",
-    "progress-bar-webpack-plugin": "^2.1.0",
     "sass": "^1.32.6",
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0",
@@ -35,7 +34,8 @@
     "webpack": "^5.20.0",
     "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^4.5.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "webpackbar": "^5.0.0-3"
   },
   "dependencies": {
     "vue": "^2.6.12",
